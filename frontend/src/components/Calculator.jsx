@@ -10,7 +10,7 @@ const Calculator = () => {
         const numbers = [];
 
         for (let i = 1; i < 10; i++) {
-            numbers.push(<button onClick={() => updateDisplay(i)} key={i}>{i}</button>)
+            numbers.push(<button onClick={() => updateDisplay(i.toString())} key={i}>{i}</button>)
         }
         return numbers;
     };
@@ -22,11 +22,15 @@ const Calculator = () => {
         if ((operators.includes(clickedButton) && calculation === "") || (operators.includes(clickedButton) && operators.includes(calculation.slice(-1)))) return;
 
         setCalculation(calculation + clickedButton);
+
+        if (!operators.includes(clickedButton)) {
+            setResult(eval(calculation + clickedButton).toString())
+        }
     }
     return (
         <div className='calculator'>
             <div className='display'>
-                <p className='displayOnTheGo'>(0)</p>
+                {result ? <p className='displayOnTheGo'>{result}</p> : ''}
                 {calculation || "0"}
             </div>
 
