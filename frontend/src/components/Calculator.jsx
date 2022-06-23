@@ -7,19 +7,7 @@ const Calculator = () => {
     const [calculation, setCalculation] = useState("");
     const operators = ['+', '-', '*', '/', '.']
 
-    // const createNumbers = () => {
-    //     const numbers = [];
-
-    //     for (let i = 1; i < 10; i++) {
-    //         numbers.push(<button onClick={() => updateResultDisp(i.toString())} key={i}>{i}</button>)
-    //     }
-    //     return numbers;
-    // };
-
     const updateResultDisp = (clickedButton) => {
-        // console.log(calculation);
-        // console.log(clickedButton);
-
         if ((operators.includes(clickedButton) && calculation === "") || (operators.includes(clickedButton) && operators.includes(calculation.slice(-1)))) return;
 
         setCalculation(calculation + clickedButton);
@@ -33,7 +21,7 @@ const Calculator = () => {
         setCalculation(eval(calculation).toString())
     }
 
-    const clear = () => {
+    const clearAll = () => {
         setCalculation("");
         setResultDisp("");
     }
@@ -62,7 +50,7 @@ const Calculator = () => {
                     <button onClick={() => updateResultDisp('-')}>-</button>
                     <button onClick={() => updateResultDisp('*')}>*</button>
                     <button onClick={() => updateResultDisp('/')}>/</button>
-                    <button onClick={() => clear()}>C</button>
+                    <button onClick={() => clearAll()}>C</button>
                 </div>
 
 
