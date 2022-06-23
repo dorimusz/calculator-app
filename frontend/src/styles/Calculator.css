@@ -1,0 +1,18 @@
+.calculator {
+    width: 100%;
+    max-width: 550px;
+
+    background-color: var(--primary);
+    border-radius: 5px;
+    box-shadow: 0 5px 30px #939495;
+    /* the button corner won't pop out */
+    overflow: hidden;
+}
+
+.display {
+    /* position to right, give nice padding, colors and font */
+}
+
+.displayOnTheGo {
+    /* font, color,  */
+}

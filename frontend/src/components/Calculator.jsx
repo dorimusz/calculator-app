@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/Calculator.css'
 
 const Calculator = () => {
     const createNumbers = () => {
