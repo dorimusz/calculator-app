@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
 import '../styles/Calculator.css'
+import Numbers from '../components/Numbers'
 
 const Calculator = () => {
     const [resultDisp, setResultDisp] = useState("");
     const [calculation, setCalculation] = useState("");
     const operators = ['+', '-', '*', '/', '.']
 
-    const createNumbers = () => {
-        const numbers = [];
+    // const createNumbers = () => {
+    //     const numbers = [];
 
-        for (let i = 1; i < 10; i++) {
-            numbers.push(<button onClick={() => updateResultDisp(i.toString())} key={i}>{i}</button>)
-        }
-        return numbers;
-    };
+    //     for (let i = 1; i < 10; i++) {
+    //         numbers.push(<button onClick={() => updateResultDisp(i.toString())} key={i}>{i}</button>)
+    //     }
+    //     return numbers;
+    // };
 
     const updateResultDisp = (clickedButton) => {
         // console.log(calculation);
@@ -37,6 +38,7 @@ const Calculator = () => {
         setResultDisp("");
     }
 
+
     return (
         <div className='calculator'>
             <div className='display'>
@@ -48,7 +50,8 @@ const Calculator = () => {
 
             <div className='calculator-grid'>
                 <div className='numbers'>
-                    {createNumbers()}
+                    {/* {createNumbers()} */}
+                    <Numbers updateResultDisp={updateResultDisp} />
                     <button onClick={() => updateResultDisp('.')}>.</button>
                     <button onClick={() => updateResultDisp('0')}>0</button>
                     <button onClick={equalsTo}>=</button>
