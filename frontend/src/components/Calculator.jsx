@@ -31,6 +31,12 @@ const Calculator = () => {
     const equalsTo = () => {
         setCalculation(eval(calculation).toString())
     }
+
+    const clear = () => {
+        setCalculation("");
+        setResultDisp("");
+    }
+
     return (
         <div className='calculator'>
             <div className='display'>
@@ -53,7 +59,7 @@ const Calculator = () => {
                     <button onClick={() => updateResultDisp('-')}>-</button>
                     <button onClick={() => updateResultDisp('*')}>*</button>
                     <button onClick={() => updateResultDisp('/')}>/</button>
-                    <button>C</button>
+                    <button onClick={() => clear()}>C</button>
                 </div>
 
 
