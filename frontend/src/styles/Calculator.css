@@ -7,6 +7,14 @@
     box-shadow: 0 5px 30px #939495;
     /* the button corner won't pop out */
     overflow: hidden;
+
+
+}
+
+.calculatorBody {
+    display: grid;
+
+
 }
 
 .display {
