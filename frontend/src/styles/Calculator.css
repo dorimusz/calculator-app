@@ -1,6 +1,6 @@
 .calculator {
     width: 100%;
-    max-width: 550px;
+    max-width: 480px;
 
     background-color: var(--primary);
     border-radius: 5px;
@@ -11,10 +11,47 @@
 
 }
 
-.calculatorBody {
+.calculator-grid {
     display: grid;
+    grid-template-rows: repeat(5, minmax(80px, 1fr));
+}
+
+.calculator-grid>button {
+    text-align: center;
+}
+
+.operators {
+    display: grid;
+    grid-row: 1 /span 5;
+    grid-column-start: 4;
+
+    background-color: rgb(255, 0, 0);
+}
+
+.numbers {
+    background-color: blue;
+    grid-row: 1 /span 4;
+    grid-column: 1 / span 3;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    /* grid-template-rows: repeat(4, minmax(40px, 1fr)); */
+}
 
 
+.memory {
+    background-color: green;
+    grid-column: 1 / span 3;
+    grid-row: 5 / span 3;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+button {
+    padding: 15px;
+    font-size: 20px;
 }
 
 .display {

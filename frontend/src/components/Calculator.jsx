@@ -40,25 +40,26 @@ const Calculator = () => {
 
             </div>
 
-            <div className='calculatorBody'>
-                <div className='operators'>
-                    <button>C</button>
-                    <button onClick={() => updateResultDisp('+')}>+</button>
-                    <button onClick={() => updateResultDisp('-')}>-</button>
-                    <button onClick={() => updateResultDisp('*')}>*</button>
-                    <button onClick={() => updateResultDisp('/')}>/</button>
-                    <button onClick={equalsTo}>=</button>
-                </div>
-
+            <div className='calculator-grid'>
                 <div className='numbers'>
                     {createNumbers()}
                     <button onClick={() => updateResultDisp('.')}>.</button>
                     <button onClick={() => updateResultDisp('0')}>0</button>
+                    <button onClick={equalsTo}>=</button>
                 </div>
 
-                <div className='calcMemory'>
-                    <button>SAVE</button>
-                    <button>MEM</button>
+                <div className='operators'>
+                    <button onClick={() => updateResultDisp('+')}>+</button>
+                    <button onClick={() => updateResultDisp('-')}>-</button>
+                    <button onClick={() => updateResultDisp('*')}>*</button>
+                    <button onClick={() => updateResultDisp('/')}>/</button>
+                    <button>C</button>
+                </div>
+
+
+                <div className='memory'>
+                    <button className='saveBtn'>SAVE</button>
+                    <button className='saveBtn'>MEM</button>
                 </div>
             </div>
         </div>
