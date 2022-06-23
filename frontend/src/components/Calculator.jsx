@@ -3,7 +3,8 @@ import '../styles/Calculator.css'
 
 const Calculator = () => {
     const [result, setResult] = useState("");
-    const [display, setDisplay] = useState("");
+    const [calculation, setCalculation] = useState("");
+    const operators = ['+', '-', '*', '/', '.']
 
     const createNumbers = () => {
         const numbers = [];
@@ -11,20 +12,22 @@ const Calculator = () => {
         for (let i = 1; i < 10; i++) {
             numbers.push(<button onClick={() => updateDisplay(i)} key={i}>{i}</button>)
         }
-
         return numbers;
     };
 
     const updateDisplay = (clickedButton) => {
-        setDisplay(display + clickedButton);
-        console.log(display);
+        console.log(calculation);
         console.log(clickedButton);
+
+        if ((operators.includes(clickedButton) && calculation === "") || (operators.includes(clickedButton) && operators.includes(calculation.slice(-1)))) return;
+
+        setCalculation(calculation + clickedButton);
     }
     return (
         <div className='calculator'>
             <div className='display'>
                 <p className='displayOnTheGo'>(0)</p>
-                {display || "0"}
+                {calculation || "0"}
             </div>
 
             <div className='operators'>
