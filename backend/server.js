@@ -11,8 +11,8 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-const testRoute = require('./routes/testroute');
-app.use('/api', testRoute)
+const memoryRoutes = require('./routes/memoryRoutes');
+app.use('/api', memoryRoutes)
 
 
 app.listen(port, () => {
