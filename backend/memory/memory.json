@@ -1,1 +1,7 @@
-[{"calculation":"45+3","result":"48","timestamp":"4"},{"calculation":"10+2","result":"12","timestamp":"5"},{"calculation":"10+2","result":"12","timestamp":"5"}]
+[
+    {
+        "calculation": "45+3",
+        "result": "48",
+        "timestamp": "4"
+    }
+]
