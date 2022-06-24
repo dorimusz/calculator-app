@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import http from 'axios'
 import '../styles/Calculator.css'
 import Numbers from '../components/Numbers'
+const backendURL = 'http://localhost:4000/api'
 
 const Calculator = () => {
     const [resultDisp, setResultDisp] = useState("");
     const [calculation, setCalculation] = useState("");
+    const [error, setError] = useState(null);
     const operators = ['+', '-', '*', '/', '.']
 
     const updateResultDisp = (clickedButton) => {
@@ -18,6 +21,7 @@ const Calculator = () => {
     }
 
     const equalsTo = () => {
+        setResultDisp(calculation) //becasue save option
         setCalculation(eval(calculation).toString())
     }
 
@@ -26,13 +30,30 @@ const Calculator = () => {
         setResultDisp("");
     }
 
+    const saveMem = async () => {
+        const response = await http.post(`${backendURL}//addMem`, {
+            //had to change the variables' value with the setter, bc after equation
+            calculation: resultDisp,
+            result: calculation,
+            timestamp: "time"
+        })
+        console.log(response);
+        if (response !== 200) setError("something went wrong")
+
+        setCalculation("");
+        setResultDisp("");
+    }
+
 
     return (
         <div className='calculator'>
+            <div>
+                {error ? null : <p>{error}</p>}
+            </div>
             <div className='display'>
                 {/* {resultDisp ? <p className='displayOnTheGo'>{resultDisp}</p> : ''} */}
-                <p>{resultDisp || '...'}</p>
-                <p>{calculation || "0"}</p>
+                <p>{resultDisp || '(0)'}</p>
+                <p>{calculation || '0'}</p>
 
             </div>
 
@@ -55,7 +76,7 @@ const Calculator = () => {
 
 
                 <div className='memory'>
-                    <button className='saveBtn'>SAVE</button>
+                    <button onClick={saveMem} className='saveBtn'>SAVE</button>
                     <button className='saveBtn'>MEM</button>
                 </div>
             </div>

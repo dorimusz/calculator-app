@@ -1,7 +1,1 @@
-[
-    {
-        "calculation": "45+3",
-        "result": "48",
-        "timestamp": "4"
-    }
-]
+[{"calculation":"45+3","result":"48","timestamp":"4"},{"calculation":"15","result":"15","timestamp":"time"},{"calculation":"56-9","result":"47","timestamp":"time"},{"calculation":"51","result":"51","timestamp":"time"},{"calculation":"45-645+65","result":"-535","timestamp":"time"},{"calculation":"45+3","result":"48","timestamp":"time"}]
