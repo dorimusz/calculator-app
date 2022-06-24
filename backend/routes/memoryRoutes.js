@@ -2,12 +2,15 @@ const router = require('express').Router();
 const fileSystem = require('fs');
 
 router.post('/addMem', (req, res) => {
-    // console.log(req.body)
-    const equation = req.body;
-    console.log(req.body)
-    fileSystem.writeFileSync('./memory/memory.txt', JSON.stringify(equation));
+    fileSystem.readFile('./memory/memory.json', function (err, data) {
+        let memoryArray = JSON.parse(data)
+        console.log(memoryArray, "array, line 10")
+        memoryArray.push(req.body);
+        console.log(memoryArray, "memory array var")
+        fileSystem.writeFileSync('./memory/memory.json', JSON.stringify(memoryArray))
+    })
 
-    res.send("ok")
+    res.sendStatus(200).json("Added to memory")
 })
 
 
