@@ -7,7 +7,7 @@ router.post('/memory', (req, res) => {
     if (!req.body?.calculation || !req.body?.result || !req.body?.timestamp) return res.sendStatus(400);
 
     const writeFile = () => {
-        //readFile is async, keeping the server async 
+        //readFile is async, keeping the server async , if using ...Sync, should use trycatch 
         fileSystem.readFile(path, (err, data) => {
             console.log(err) //file does not exist
             if (err) return res.sendStatus(500); // error occured
@@ -36,9 +36,12 @@ router.post('/memory', (req, res) => {
     res.status(200).json("Equation added to memory");
 })
 
-
 router.get('/memory', (req, res) => {
-    res.send('Hello World on new route!');
+    fileSystem.readFile(path, (err, data) => {
+        if (err) return res.sendStatus(500); // error occured
+        let memoryArray = JSON.parse(data);
+        res.json(memoryArray);
+    });
 })
 
 module.exports = router;
