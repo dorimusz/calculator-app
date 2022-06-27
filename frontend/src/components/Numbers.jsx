@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Numbers = (props) => {
-    // console.log(props);
     let handleClick = props.handleClick;
 
     const createNumbers = () => {

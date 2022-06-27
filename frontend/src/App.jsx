@@ -1,5 +1,4 @@
 import './App.css';
-import http from 'axios'
 import Calculator from './components/Calculator';
 
 function App() {

@@ -61,7 +61,7 @@ const Calculator = () => {
                 break;
             }
             default: {
-                console.log("Called with unknown operator ");
+                console.log("Called with unknown operator "); //default not really necessary in this case
             }
         }
         setResult(result)
@@ -79,11 +79,8 @@ const Calculator = () => {
     const saveMem = async () => {
         const response = await http.post(`${backendURL}/memory`, {
             calculation: secondaryDisp + '=' + result,
-            // timestamp: "time"
         })
         if (response.status !== 200) setError("something went wrong")
-        console.log(response.status)
-
         if (response.status === 200) console.log("saved successfully");
 
         setNumber("");
@@ -95,9 +92,7 @@ const Calculator = () => {
             setMemory(response.data)
 
         } catch (error) {
-            console.log(error.message);
-            setError("")
-
+            setError("Try again later!")
         }
 
     }
