@@ -1,10 +1,11 @@
 import React from 'react'
+import('../styles/ErrorMessage.css')
 
 const ErrorMessage = (props) => {
     let error = props.error;
 
     return (
-        <div>{error ? <p>{error}</p> : null}</div>
+        <div className='errMessage'>{error ? <p>{error}</p> : null}</div>
     )
 }
 

@@ -1,18 +1,19 @@
 .calculator {
     width: 100%;
-    max-width: 480px;
+    max-width: 400px;
 
-    background-color: var(--primary);
+    background-color: var(--light);
     border-radius: 5px;
-    box-shadow: 0 5px 30px #939495;
-    /* the button corner won't pop out */
+    box-shadow: 0 3px 25px #939495;
     overflow: hidden;
-
-
+    font-family: 'Kanit', sans-serif;
+    font-weight: 400;
 }
 
 .calculator-grid {
+    margin: 15px 15px 0;
     display: grid;
+    gap: 10px;
     grid-template-rows: repeat(5, minmax(80px, 1fr));
 }
 
@@ -24,42 +25,57 @@
     display: grid;
     grid-row: 1 /span 5;
     grid-column-start: 4;
+    gap: 10px;
+}
 
-    background-color: rgb(255, 0, 0);
+.operators>button {
+    background-color: var(--operators);
 }
 
 .numbers {
-    background-color: blue;
     grid-row: 1 /span 4;
     grid-column: 1 / span 3;
+    gap: 10px;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    /* grid-template-rows: repeat(4, minmax(40px, 1fr)); */
+}
+
+.numbers>button {
+    background-color: var(--numbers);
+    transition: background-color .2s ease-in-out;
 }
 
 
 .memory {
-    background-color: green;
     grid-column: 1 / span 3;
     grid-row: 5 / span 3;
+    gap: 10px;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
+.memory>button {
+    background-color: var(--memory);
+
+}
+
+.memory:last-child {
+    margin-bottom: 20px;
+}
+
 button {
-    padding: 15px;
-    font-size: 20px;
+    padding: 10px;
+
+    border-radius: 5px;
+    box-shadow: 0 2px 4px #939495;
+
+    font-size: 30px;
+    color: var(--light)
 }
 
-.display {
-    /* set height and position to right and bottom to fit both result in two lines without popping, give nice padding, colors and font */
-}
-
-#saved {
-    height: 20px;
-    width: 200px;
-    background-color: blueviolet;
+button:hover {
+    opacity: 0.9;
 }

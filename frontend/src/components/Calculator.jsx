@@ -4,6 +4,7 @@ import '../styles/Calculator.css';
 import Numbers from '../components/Numbers';
 import ErrorMessage from './ErrorMessage';
 import Memory from './Memory';
+import Display from './Display';
 import { addNums, substractNums, multiplyNums, divNums } from "../utils/operators";
 const backendURL = 'http://localhost:4000/api';
 
@@ -60,7 +61,8 @@ const Calculator = () => {
                 break;
             }
             default: {
-                console.log("Called with unknown operator "); //default not really necessary in this case
+                console.log("Called with unknown operator ");
+                return //default not really necessary in this case
             }
         }
         setResult(result)
@@ -99,11 +101,7 @@ const Calculator = () => {
     return (
         <>
             <div className='calculator'>
-                <div className='display'>
-                    <p>{secondaryDisp || '...'}</p>
-                    <p>{result || '0'}</p>
-
-                </div>
+                <Display secondaryDisp={secondaryDisp} result={result} />
 
                 <div className='calculator-grid'>
                     <div className='numbers'>
@@ -127,11 +125,13 @@ const Calculator = () => {
                         <button onClick={getMem} className='saveBtn'>MEM</button>
                     </div>
                 </div>
+                <ErrorMessage error={error} />
             </div>
 
-            {memory ? memory.map((mem, i) => <Memory memory={mem} key={i} />) : ""}
+            {memory ? memory.map((mem, i) =>
+                <Memory memory={mem} key={i} />)
+                : ""}
 
-            <ErrorMessage error={error} />
         </>
     )
 }
