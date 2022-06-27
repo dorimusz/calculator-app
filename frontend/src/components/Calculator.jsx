@@ -25,6 +25,7 @@ const Calculator = () => {
         setNumber(number + clickedButton);
         setResult(number + clickedButton);
 
+        //if there's previous number, set the result:
         if (prevNumber !== "") return setResult(prevNumber + operator + clickedButton);
     }
 
@@ -68,7 +69,8 @@ const Calculator = () => {
         setOperator(null);
         setNumber("");
         setPrevNumber("");
-        setResult("")
+        setResult("");
+        setSecondaryDisp("")
     }
 
     const saveMem = async () => {
@@ -86,7 +88,7 @@ const Calculator = () => {
         <>
             <div className='calculator'>
                 <div className='display'>
-                    <p>{secondaryDisp || '(0)'}</p>
+                    <p>{secondaryDisp || '...'}</p>
                     <p>{result || '0'}</p>
 
                 </div>
