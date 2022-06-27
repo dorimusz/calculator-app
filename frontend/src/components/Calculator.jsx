@@ -11,15 +11,19 @@ const Calculator = () => {
     // const { addNums, subtractNums, multiplyNums, divNums } = calc();
     const [error, setError] = useState(null);
 
+    const [result, setResult] = useState("")
     const [number, setNumber] = useState(""); //display
-    const [prevNumber, setPrevNumber] = useState(0);
+    const [prevNumber, setPrevNumber] = useState("");
     const [operator, setOperator] = useState(null);
     const operators = ['+', '-', '*', '/', '.'];
 
     const handleClick = (clickedButton) => {
         if ((operators.includes(clickedButton) && number === 0) || (operators.includes(clickedButton) && operators.includes(number.slice(-1)))) return; //cannot start with operator, operator cannot be the last clicked button
 
-        setNumber(number + clickedButton)
+        setNumber(number + clickedButton);
+        setResult(number + clickedButton);
+
+        if (prevNumber !== "") return setResult(prevNumber + operator + clickedButton);
     }
 
     const handleOperator = (clickedButton) => {
@@ -27,6 +31,7 @@ const Calculator = () => {
         setPrevNumber(number);
         setNumber("");
         setOperator(clickedButton)
+        setResult(number + clickedButton)
     }
 
     const equalsTo = () => {
@@ -34,8 +39,6 @@ const Calculator = () => {
 
         switch (operator) {
             case "+": {
-                console.log(prevNumber);
-                console.log(number);
                 result = parseFloat(prevNumber) + parseFloat(number);
                 break;
             }
@@ -55,17 +58,19 @@ const Calculator = () => {
                 console.log("Called with unknown operator ");
             }
         }
-        // setNumber(number + '=' + result)
-        setNumber(result)
+        setResult(prevNumber + operator + number + '=' + result)
     }
 
     const clearAll = () => {
+        setOperator(null);
         setNumber("");
+        setPrevNumber("");
+        setResult("")
     }
 
     const saveMem = async () => {
         const response = await http.post(`${backendURL}/memory`, {
-            result: number,
+            calculation: number,
             timestamp: "time"
         })
         if (response.status !== 200) setError("something went wrong")
@@ -77,7 +82,7 @@ const Calculator = () => {
         <>
             <div className='calculator'>
                 <div className='display'>
-                    <p>{number || '0'}</p>
+                    <p>{result || '0'}</p>
 
                 </div>
 
