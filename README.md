@@ -1,6 +1,6 @@
 # Calculator app
 
-It's a calculator application that uses React in client side and NodeJs/ExpressJs on server side.
+It's a calculator application that uses React on client side and NodeJs/ExpressJs on server side.
 
 ### How it works
 * Addition, subtraction, multiplication and division of two numbers. Use the num pad and operators.
