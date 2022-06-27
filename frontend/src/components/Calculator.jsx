@@ -4,12 +4,11 @@ import '../styles/Calculator.css';
 import Numbers from '../components/Numbers';
 import ErrorMessage from './ErrorMessage';
 import Memory from './Memory';
-// import { calc } from "../utils/calculation";
+import { addNums, substractNums, multiplyNums, divNums } from "../utils/operators";
 const backendURL = 'http://localhost:4000/api';
 
 
 const Calculator = () => {
-    // const { addNums, subtractNums, multiplyNums, divNums } = calc();
     const [error, setError] = useState(null);
 
     const [secondaryDisp, setSecondaryDisp] = useState("")
@@ -45,19 +44,19 @@ const Calculator = () => {
 
         switch (operator) {
             case "+": {
-                result = parseFloat(prevNumber) + parseFloat(number);
+                result = addNums(prevNumber, number)
                 break;
             }
             case "-": {
-                result = parseFloat(prevNumber) - parseFloat(number);
+                result = substractNums(prevNumber, number);
                 break;
             }
             case "*": {
-                result = parseFloat(prevNumber) * parseFloat(number);
+                result = multiplyNums(prevNumber, number);
                 break;
             }
             case "/": {
-                result = parseFloat(prevNumber) / parseFloat(number)
+                result = divNums(prevNumber, number)
                 break;
             }
             default: {
