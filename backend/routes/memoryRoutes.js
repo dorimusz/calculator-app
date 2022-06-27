@@ -24,14 +24,15 @@ router.post('/memory', (req, res) => {
 
     if (isFile) {
         writeFile();
+        res.status(200).json("Equation added to memory");
     } else {
         fileSystem.appendFile(path, '[]', function (err) {
             if (err) return res.sendStatus(500); // error occured
         });
         writeFile();
+        res.status(200).json("Equation added to memory");
     }
-
-    res.status(200).json("Equation added to memory");
+    res.status(500).json("Couldn't add to memory.")
 })
 
 router.get('/memory', (req, res) => {

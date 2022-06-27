@@ -32,6 +32,8 @@ const Calculator = () => {
 
         //if there's previous number, set the result:
         if (prevNumber !== "") return setResult(prevNumber + operator + clickedButton);
+
+        setError(null)
     }
 
     const handleOperator = (clickedButton) => {
@@ -40,6 +42,7 @@ const Calculator = () => {
         setNumber("");
         setOperator(clickedButton)
         setResult(number + clickedButton)
+        setError(null)
     }
 
     const equalsTo = () => {
@@ -80,6 +83,7 @@ const Calculator = () => {
     }
 
     const saveMem = async () => {
+        if (!secondaryDisp) return setError('You need the result to save the operation.');
         const response = await http.post(`${backendURL}/memory`, {
             calculation: secondaryDisp + '=' + result,
         })
