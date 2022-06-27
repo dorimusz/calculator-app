@@ -1,74 +1,100 @@
-import React, { useState } from 'react'
-import http from 'axios'
-import '../styles/Calculator.css'
-import Numbers from '../components/Numbers'
+import React, { useState } from 'react';
+import http from 'axios';
+import '../styles/Calculator.css';
+import Numbers from '../components/Numbers';
 import ErrorMessage from './ErrorMessage';
-const backendURL = 'http://localhost:4000/api'
+import { calc } from "../utils/calculation";
+const backendURL = 'http://localhost:4000/api';
+
 
 const Calculator = () => {
-    const [resultDisp, setResultDisp] = useState("");
-    const [calculation, setCalculation] = useState("");
+    // const { addNums, subtractNums, multiplyNums, divNums } = calc();
+    // const [resultDisp, setResultDisp] = useState("");
     const [error, setError] = useState(null);
+
+    const [calculation, setCalculation] = useState("")
+    const [number, setNumber] = useState(""); //display
+    const [prevNumber, setPrevNumber] = useState(0);
+    const [operator, setOperator] = useState();
     const operators = ['+', '-', '*', '/', '.'];
 
-    const updateResultDisp = (clickedButton) => {
-        if ((operators.includes(clickedButton) && calculation === "") || (operators.includes(clickedButton) && operators.includes(calculation.slice(-1)))) return;
+    const handleClick = (clickedButton) => {
+        if ((operators.includes(clickedButton) && number === 0) || (operators.includes(clickedButton) && operators.includes(number.slice(-1)))) return; //cannot start with operator, operator cannot be the last clicked button
 
-        setCalculation(calculation + clickedButton);
+        setNumber(number + clickedButton)
+    }
 
-        if (!operators.includes(clickedButton)) {
-            setResultDisp(eval(calculation + clickedButton).toString())
-        }
+    const handleOperator = (clickedButton) => {
+        setPrevNumber(number);
+        setNumber(number + clickedButton);
+        setOperator(clickedButton)
+
     }
 
     const equalsTo = () => {
-        setResultDisp(calculation) //because save option
-        setCalculation(eval(calculation).toString())
+        let result = 0;
+
+        switch (operator) {
+            case "+": {
+                result = parseFloat(prevNumber) + parseFloat(number)
+                break;
+            }
+            case "-": {
+
+                break;
+            }
+            case "*": {
+
+                break;
+            }
+            case "/": {
+
+                break;
+            }
+            default: { //kinda same as if-else's else
+                console.log("Called with unknown operator ");
+            }
+        }
+        setNumber(result)
     }
 
     const clearAll = () => {
-        setCalculation("");
-        setResultDisp("");
+        setNumber("");
     }
 
     const saveMem = async () => {
-        const response = await http.post(`${backendURL}//addMem`, {
-            //had to change the variables' value with the setter, bc after equation
-            calculation: resultDisp,
-            result: calculation,
+        const response = await http.post(`${backendURL}/memory`, {
+            result: number,
             timestamp: "time"
         })
-        console.log(response);
         if (response.status !== 200) setError("something went wrong")
 
-        setCalculation("");
-        setResultDisp("");
+        setNumber("");
+        // setResultDisp("");
     }
 
     return (
         <>
             <div className='calculator'>
                 <div className='display'>
-                    {/* {resultDisp ? <p className='displayOnTheGo'>{resultDisp}</p> : ''} */}
-                    <p>{resultDisp || '(0)'}</p>
-                    <p>{calculation || '0'}</p>
+                    {/* <p>{resultDisp || '(0)'}</p> */}
+                    <p>{number || '0'}</p>
 
                 </div>
 
                 <div className='calculator-grid'>
                     <div className='numbers'>
-                        {/* {createNumbers()} */}
-                        <Numbers updateResultDisp={updateResultDisp} />
-                        <button onClick={() => updateResultDisp('.')}>.</button>
-                        <button onClick={() => updateResultDisp('0')}>0</button>
+                        <Numbers handleClick={handleClick} />
+                        <button onClick={() => handleClick('.')}>.</button>
+                        <button onClick={() => handleClick('0')}>0</button>
                         <button onClick={equalsTo}>=</button>
                     </div>
 
                     <div className='operators'>
-                        <button onClick={() => updateResultDisp('+')}>+</button>
-                        <button onClick={() => updateResultDisp('-')}>-</button>
-                        <button onClick={() => updateResultDisp('*')}>*</button>
-                        <button onClick={() => updateResultDisp('/')}>/</button>
+                        <button onClick={() => handleOperator('+')}>+</button>
+                        <button onClick={() => handleOperator('-')}>-</button>
+                        <button onClick={() => handleOperator('*')}>*</button>
+                        <button onClick={() => handleOperator('/')}>/</button>
                         <button onClick={() => clearAll()}>C</button>
                     </div>
 
