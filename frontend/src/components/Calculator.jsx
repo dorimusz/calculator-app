@@ -9,13 +9,11 @@ const backendURL = 'http://localhost:4000/api';
 
 const Calculator = () => {
     // const { addNums, subtractNums, multiplyNums, divNums } = calc();
-    // const [resultDisp, setResultDisp] = useState("");
     const [error, setError] = useState(null);
 
-    const [calculation, setCalculation] = useState("")
     const [number, setNumber] = useState(""); //display
     const [prevNumber, setPrevNumber] = useState(0);
-    const [operator, setOperator] = useState();
+    const [operator, setOperator] = useState(null);
     const operators = ['+', '-', '*', '/', '.'];
 
     const handleClick = (clickedButton) => {
@@ -25,10 +23,10 @@ const Calculator = () => {
     }
 
     const handleOperator = (clickedButton) => {
+        if (operator !== null) return;
         setPrevNumber(number);
-        setNumber(number + clickedButton);
+        setNumber("");
         setOperator(clickedButton)
-
     }
 
     const equalsTo = () => {
@@ -36,25 +34,28 @@ const Calculator = () => {
 
         switch (operator) {
             case "+": {
-                result = parseFloat(prevNumber) + parseFloat(number)
+                console.log(prevNumber);
+                console.log(number);
+                result = parseFloat(prevNumber) + parseFloat(number);
                 break;
             }
             case "-": {
-
+                result = parseFloat(prevNumber) - parseFloat(number);
                 break;
             }
             case "*": {
-
+                result = parseFloat(prevNumber) * parseFloat(number);
                 break;
             }
             case "/": {
-
+                result = parseFloat(prevNumber) / parseFloat(number)
                 break;
             }
-            default: { //kinda same as if-else's else
+            default: {
                 console.log("Called with unknown operator ");
             }
         }
+        // setNumber(number + '=' + result)
         setNumber(result)
     }
 
@@ -70,14 +71,12 @@ const Calculator = () => {
         if (response.status !== 200) setError("something went wrong")
 
         setNumber("");
-        // setResultDisp("");
     }
 
     return (
         <>
             <div className='calculator'>
                 <div className='display'>
-                    {/* <p>{resultDisp || '(0)'}</p> */}
                     <p>{number || '0'}</p>
 
                 </div>
