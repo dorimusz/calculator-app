@@ -3,7 +3,7 @@ import http from 'axios';
 import '../styles/Calculator.css';
 import Numbers from '../components/Numbers';
 import ErrorMessage from './ErrorMessage';
-import { calc } from "../utils/calculation";
+// import { calc } from "../utils/calculation";
 const backendURL = 'http://localhost:4000/api';
 
 
@@ -11,8 +11,10 @@ const Calculator = () => {
     // const { addNums, subtractNums, multiplyNums, divNums } = calc();
     const [error, setError] = useState(null);
 
-    const [result, setResult] = useState("")
-    const [number, setNumber] = useState(""); //display
+    const [secondaryDisp, setSecondaryDisp] = useState("")
+    const [result, setResult] = useState(""); //display
+
+    const [number, setNumber] = useState("");
     const [prevNumber, setPrevNumber] = useState("");
     const [operator, setOperator] = useState(null);
     const operators = ['+', '-', '*', '/', '.'];
@@ -58,7 +60,8 @@ const Calculator = () => {
                 console.log("Called with unknown operator ");
             }
         }
-        setResult(prevNumber + operator + number + '=' + result)
+        setResult(result)
+        setSecondaryDisp(prevNumber + operator + number)
     }
 
     const clearAll = () => {
@@ -69,8 +72,9 @@ const Calculator = () => {
     }
 
     const saveMem = async () => {
+        console.log();
         const response = await http.post(`${backendURL}/memory`, {
-            calculation: number,
+            calculation: secondaryDisp + '=' + result,
             timestamp: "time"
         })
         if (response.status !== 200) setError("something went wrong")
@@ -82,6 +86,7 @@ const Calculator = () => {
         <>
             <div className='calculator'>
                 <div className='display'>
+                    <p>{secondaryDisp || '(0)'}</p>
                     <p>{result || '0'}</p>
 
                 </div>

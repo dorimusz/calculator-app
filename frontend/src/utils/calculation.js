@@ -1,10 +1,7 @@
 export const calc = (a, b, operator) => {
 
     const addNums = (a, b) => {
-        const sum = parseInt(a) + parseInt(b);
-        console.log(typeof (sum))
-        console.log(sum)
-        return sum;
+        return a + b;
     }
     const subtractNums = (a, b) => {
         return a - b;
