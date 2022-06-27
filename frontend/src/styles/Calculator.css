@@ -58,6 +58,8 @@ button {
     /* set height and position to right and bottom to fit both result in two lines without popping, give nice padding, colors and font */
 }
 
-.displayOnTheGo {
-    /* font, color,  */
+#saved {
+    height: 20px;
+    width: 200px;
+    background-color: blueviolet;
 }

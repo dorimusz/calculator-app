@@ -4,7 +4,8 @@ const path = './memory/memory.json';
 
 router.post('/memory', (req, res) => {
     if (!req.body) return res.sendStatus(400);
-    if (!req.body?.calculation || !req.body?.result || !req.body?.timestamp) return res.sendStatus(400);
+    if (!req.body?.calculation) return res.sendStatus(400);
+    // if (!req.body?.calculation || !req.body?.timestamp) return res.sendStatus(400);
 
     const writeFile = () => {
         //readFile is async, keeping the server async , if using ...Sync, should use trycatch 
@@ -13,7 +14,7 @@ router.post('/memory', (req, res) => {
             if (err) return res.sendStatus(500); // error occured
             let memoryArray = JSON.parse(data);
             memoryArray.push(req.body);
-            console.log(typeof (memoryArray))
+            // console.log(typeof (memoryArray))
             fileSystem.writeFile(path, JSON.stringify(memoryArray), (err, result) => {
                 if (err) return res.sendStatus(500); // error occured;
             });
@@ -39,8 +40,8 @@ router.post('/memory', (req, res) => {
 router.get('/memory', (req, res) => {
     fileSystem.readFile(path, (err, data) => {
         if (err) return res.sendStatus(500); // error occured
-        let memoryArray = JSON.parse(data);
-        res.json(memoryArray);
+        memoryArray = JSON.parse(data);
+        res.status(200).json(memoryArray);
     });
 })
 

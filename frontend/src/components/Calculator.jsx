@@ -3,6 +3,7 @@ import http from 'axios';
 import '../styles/Calculator.css';
 import Numbers from '../components/Numbers';
 import ErrorMessage from './ErrorMessage';
+import Memory from './Memory';
 // import { calc } from "../utils/calculation";
 const backendURL = 'http://localhost:4000/api';
 
@@ -18,6 +19,8 @@ const Calculator = () => {
     const [prevNumber, setPrevNumber] = useState("");
     const [operator, setOperator] = useState(null);
     const operators = ['+', '-', '*', '/', '.'];
+
+    const [memory, setMemory] = useState([]);
 
     const handleClick = (clickedButton) => {
         if ((operators.includes(clickedButton) && number === 0) || (operators.includes(clickedButton) && operators.includes(number.slice(-1)))) return; //cannot start with operator, operator cannot be the last clicked button
@@ -74,14 +77,29 @@ const Calculator = () => {
     }
 
     const saveMem = async () => {
-        console.log();
         const response = await http.post(`${backendURL}/memory`, {
             calculation: secondaryDisp + '=' + result,
-            timestamp: "time"
+            // timestamp: "time"
         })
         if (response.status !== 200) setError("something went wrong")
+        console.log(response.status)
+
+        if (response.status === 200) console.log("saved successfully");
 
         setNumber("");
+    }
+
+    const getMem = async () => {
+        try {
+            const response = await http.get(`${backendURL}/memory`)
+            setMemory(response.data)
+
+        } catch (error) {
+            console.log(error.message);
+            setError("")
+
+        }
+
     }
 
     return (
@@ -112,10 +130,12 @@ const Calculator = () => {
 
                     <div className='memory'>
                         <button onClick={saveMem} className='saveBtn'>SAVE</button>
-                        <button className='saveBtn'>MEM</button>
+                        <button onClick={getMem} className='saveBtn'>MEM</button>
                     </div>
                 </div>
             </div>
+
+            {memory ? memory.map((mem, i) => <Memory memory={mem} key={i} />) : ""}
 
             <ErrorMessage error={error} />
         </>
