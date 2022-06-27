@@ -1,10 +1,10 @@
 import React from 'react'
-import '../styles/Memory.css';
+import '../styles/Memory.css'
 
 const Memory = ({ memory }) => {
 
     return (
-        <div className='memory'>
+        <div>
             {memory.calculation}
         </div>
     )

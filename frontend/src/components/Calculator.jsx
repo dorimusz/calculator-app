@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import http from 'axios';
 import '../styles/Calculator.css';
+import '../styles/Memory.css';
+import content from '../content/content'
 import Numbers from '../components/Numbers';
 import ErrorMessage from './ErrorMessage';
 import Memory from './Memory';
@@ -128,9 +130,14 @@ const Calculator = () => {
                 <ErrorMessage error={error} />
             </div>
 
-            {memory ? memory.map((mem, i) =>
-                <Memory memory={mem} key={i} />)
-                : ""}
+            <div className='memoryContainer'>
+                <h3 className='memoryTitle'>{content.memoryTitle}</h3>
+                <div className='memoryData'>
+                    {memory ? memory.map((mem, i) =>
+                        <Memory memory={mem} key={i} />)
+                        : ""}
+                </div>
+            </div>
 
         </>
     )
